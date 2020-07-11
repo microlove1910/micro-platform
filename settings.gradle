@@ -1,4 +1,5 @@
 rootProject.name = 'micro-platform'
 include 'micro-admin'
 include 'micro-domain'
+include 'mybatis-generator'
 

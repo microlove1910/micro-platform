@@ -1,0 +1,22 @@
+server:
+  port: 9089
+
+spring:
+  session:
+    timeout: 24H
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/micro_platform?useSSL=false&useUnicode=true
+    username: root
+    password: 56131910m@
+
+
+
+logging:
+  level:
+    com:
+      micro:
+        thing: debug

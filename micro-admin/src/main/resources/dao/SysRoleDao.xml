@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micro.thing.dao.SysRoleDao">
+
+    <select id="loadByAdminId" resultMap="com.micro.thing.mybatis.mapper.SysRoleMapper.BaseResultMap">
+        select r.* from sys_role r
+        inner join sys_admin_role_relation a on r.id = a.role_id and a.admin_id = #{adminId,jdbcType=INTEGER}
+        where r.status = 1
+    </select>
+
+</mapper>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micro.thing.mybatis.mapper.SpringSessionAttributesMapper">
+  <resultMap id="BaseResultMap" type="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    <id column="SESSION_PRIMARY_ID" jdbcType="CHAR" property="sessionPrimaryId" />
+    <id column="ATTRIBUTE_NAME" jdbcType="VARCHAR" property="attributeName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    <result column="ATTRIBUTE_BYTES" jdbcType="LONGVARBINARY" property="attributeBytes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SESSION_PRIMARY_ID, ATTRIBUTE_NAME
+  </sql>
+  <sql id="Blob_Column_List">
+    ATTRIBUTE_BYTES
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributesExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SPRING_SESSION_ATTRIBUTES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SPRING_SESSION_ATTRIBUTES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from SPRING_SESSION_ATTRIBUTES
+    where SESSION_PRIMARY_ID = #{sessionPrimaryId,jdbcType=CHAR}
+      and ATTRIBUTE_NAME = #{attributeName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from SPRING_SESSION_ATTRIBUTES
+    where SESSION_PRIMARY_ID = #{sessionPrimaryId,jdbcType=CHAR}
+      and ATTRIBUTE_NAME = #{attributeName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributesExample">
+    delete from SPRING_SESSION_ATTRIBUTES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    insert into SPRING_SESSION_ATTRIBUTES (SESSION_PRIMARY_ID, ATTRIBUTE_NAME, ATTRIBUTE_BYTES
+      )
+    values (#{sessionPrimaryId,jdbcType=CHAR}, #{attributeName,jdbcType=VARCHAR}, #{attributeBytes,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    insert into SPRING_SESSION_ATTRIBUTES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sessionPrimaryId != null">
+        SESSION_PRIMARY_ID,
+      </if>
+      <if test="attributeName != null">
+        ATTRIBUTE_NAME,
+      </if>
+      <if test="attributeBytes != null">
+        ATTRIBUTE_BYTES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sessionPrimaryId != null">
+        #{sessionPrimaryId,jdbcType=CHAR},
+      </if>
+      <if test="attributeName != null">
+        #{attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeBytes != null">
+        #{attributeBytes,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributesExample" resultType="java.lang.Long">
+    select count(*) from SPRING_SESSION_ATTRIBUTES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SPRING_SESSION_ATTRIBUTES
+    <set>
+      <if test="record.sessionPrimaryId != null">
+        SESSION_PRIMARY_ID = #{record.sessionPrimaryId,jdbcType=CHAR},
+      </if>
+      <if test="record.attributeName != null">
+        ATTRIBUTE_NAME = #{record.attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeBytes != null">
+        ATTRIBUTE_BYTES = #{record.attributeBytes,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update SPRING_SESSION_ATTRIBUTES
+    set SESSION_PRIMARY_ID = #{record.sessionPrimaryId,jdbcType=CHAR},
+      ATTRIBUTE_NAME = #{record.attributeName,jdbcType=VARCHAR},
+      ATTRIBUTE_BYTES = #{record.attributeBytes,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SPRING_SESSION_ATTRIBUTES
+    set SESSION_PRIMARY_ID = #{record.sessionPrimaryId,jdbcType=CHAR},
+      ATTRIBUTE_NAME = #{record.attributeName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    update SPRING_SESSION_ATTRIBUTES
+    <set>
+      <if test="attributeBytes != null">
+        ATTRIBUTE_BYTES = #{attributeBytes,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where SESSION_PRIMARY_ID = #{sessionPrimaryId,jdbcType=CHAR}
+      and ATTRIBUTE_NAME = #{attributeName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.micro.thing.mybatis.model.SpringSessionAttributes">
+    update SPRING_SESSION_ATTRIBUTES
+    set ATTRIBUTE_BYTES = #{attributeBytes,jdbcType=LONGVARBINARY}
+    where SESSION_PRIMARY_ID = #{sessionPrimaryId,jdbcType=CHAR}
+      and ATTRIBUTE_NAME = #{attributeName,jdbcType=VARCHAR}
+  </update>
+</mapper>

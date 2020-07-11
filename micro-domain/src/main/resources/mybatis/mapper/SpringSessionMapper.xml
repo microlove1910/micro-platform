@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micro.thing.mybatis.mapper.SpringSessionMapper">
+  <resultMap id="BaseResultMap" type="com.micro.thing.mybatis.model.SpringSession">
+    <id column="PRIMARY_ID" jdbcType="CHAR" property="primaryId" />
+    <result column="SESSION_ID" jdbcType="CHAR" property="sessionId" />
+    <result column="CREATION_TIME" jdbcType="BIGINT" property="creationTime" />
+    <result column="LAST_ACCESS_TIME" jdbcType="BIGINT" property="lastAccessTime" />
+    <result column="MAX_INACTIVE_INTERVAL" jdbcType="INTEGER" property="maxInactiveInterval" />
+    <result column="EXPIRY_TIME" jdbcType="BIGINT" property="expiryTime" />
+    <result column="PRINCIPAL_NAME" jdbcType="VARCHAR" property="principalName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PRIMARY_ID, SESSION_ID, CREATION_TIME, LAST_ACCESS_TIME, MAX_INACTIVE_INTERVAL, EXPIRY_TIME, 
+    PRINCIPAL_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SPRING_SESSION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SPRING_SESSION
+    where PRIMARY_ID = #{primaryId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SPRING_SESSION
+    where PRIMARY_ID = #{primaryId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionExample">
+    delete from SPRING_SESSION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.micro.thing.mybatis.model.SpringSession">
+    insert into SPRING_SESSION (PRIMARY_ID, SESSION_ID, CREATION_TIME, 
+      LAST_ACCESS_TIME, MAX_INACTIVE_INTERVAL, EXPIRY_TIME, 
+      PRINCIPAL_NAME)
+    values (#{primaryId,jdbcType=CHAR}, #{sessionId,jdbcType=CHAR}, #{creationTime,jdbcType=BIGINT}, 
+      #{lastAccessTime,jdbcType=BIGINT}, #{maxInactiveInterval,jdbcType=INTEGER}, #{expiryTime,jdbcType=BIGINT}, 
+      #{principalName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.micro.thing.mybatis.model.SpringSession">
+    insert into SPRING_SESSION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="primaryId != null">
+        PRIMARY_ID,
+      </if>
+      <if test="sessionId != null">
+        SESSION_ID,
+      </if>
+      <if test="creationTime != null">
+        CREATION_TIME,
+      </if>
+      <if test="lastAccessTime != null">
+        LAST_ACCESS_TIME,
+      </if>
+      <if test="maxInactiveInterval != null">
+        MAX_INACTIVE_INTERVAL,
+      </if>
+      <if test="expiryTime != null">
+        EXPIRY_TIME,
+      </if>
+      <if test="principalName != null">
+        PRINCIPAL_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="primaryId != null">
+        #{primaryId,jdbcType=CHAR},
+      </if>
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastAccessTime != null">
+        #{lastAccessTime,jdbcType=BIGINT},
+      </if>
+      <if test="maxInactiveInterval != null">
+        #{maxInactiveInterval,jdbcType=INTEGER},
+      </if>
+      <if test="expiryTime != null">
+        #{expiryTime,jdbcType=BIGINT},
+      </if>
+      <if test="principalName != null">
+        #{principalName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.micro.thing.mybatis.model.SpringSessionExample" resultType="java.lang.Long">
+    select count(*) from SPRING_SESSION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SPRING_SESSION
+    <set>
+      <if test="record.primaryId != null">
+        PRIMARY_ID = #{record.primaryId,jdbcType=CHAR},
+      </if>
+      <if test="record.sessionId != null">
+        SESSION_ID = #{record.sessionId,jdbcType=CHAR},
+      </if>
+      <if test="record.creationTime != null">
+        CREATION_TIME = #{record.creationTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastAccessTime != null">
+        LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxInactiveInterval != null">
+        MAX_INACTIVE_INTERVAL = #{record.maxInactiveInterval,jdbcType=INTEGER},
+      </if>
+      <if test="record.expiryTime != null">
+        EXPIRY_TIME = #{record.expiryTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.principalName != null">
+        PRINCIPAL_NAME = #{record.principalName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SPRING_SESSION
+    set PRIMARY_ID = #{record.primaryId,jdbcType=CHAR},
+      SESSION_ID = #{record.sessionId,jdbcType=CHAR},
+      CREATION_TIME = #{record.creationTime,jdbcType=BIGINT},
+      LAST_ACCESS_TIME = #{record.lastAccessTime,jdbcType=BIGINT},
+      MAX_INACTIVE_INTERVAL = #{record.maxInactiveInterval,jdbcType=INTEGER},
+      EXPIRY_TIME = #{record.expiryTime,jdbcType=BIGINT},
+      PRINCIPAL_NAME = #{record.principalName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.micro.thing.mybatis.model.SpringSession">
+    update SPRING_SESSION
+    <set>
+      <if test="sessionId != null">
+        SESSION_ID = #{sessionId,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        CREATION_TIME = #{creationTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastAccessTime != null">
+        LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=BIGINT},
+      </if>
+      <if test="maxInactiveInterval != null">
+        MAX_INACTIVE_INTERVAL = #{maxInactiveInterval,jdbcType=INTEGER},
+      </if>
+      <if test="expiryTime != null">
+        EXPIRY_TIME = #{expiryTime,jdbcType=BIGINT},
+      </if>
+      <if test="principalName != null">
+        PRINCIPAL_NAME = #{principalName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PRIMARY_ID = #{primaryId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.micro.thing.mybatis.model.SpringSession">
+    update SPRING_SESSION
+    set SESSION_ID = #{sessionId,jdbcType=CHAR},
+      CREATION_TIME = #{creationTime,jdbcType=BIGINT},
+      LAST_ACCESS_TIME = #{lastAccessTime,jdbcType=BIGINT},
+      MAX_INACTIVE_INTERVAL = #{maxInactiveInterval,jdbcType=INTEGER},
+      EXPIRY_TIME = #{expiryTime,jdbcType=BIGINT},
+      PRINCIPAL_NAME = #{principalName,jdbcType=VARCHAR}
+    where PRIMARY_ID = #{primaryId,jdbcType=CHAR}
+  </update>
+</mapper>

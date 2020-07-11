@@ -2,6 +2,8 @@ version '1.0.0'
 
 dependencies {
     compile project(':micro-domain')
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.session:spring-session-jdbc'
 }
 
 
@@ -10,7 +12,7 @@ task clearJar(type: Delete) {
     delete "$buildDir/libs/lib"
 }
 
-//复制jar到lib里面去
+////复制jar到lib里面去
 task copyJar(type: Copy) {
     from configurations.runtime
     exclude 'micro-domain-*.jar'
@@ -25,7 +27,6 @@ task copyConfig(type: Copy) {
 }
 
 bootJar {
-    requiresUnpack '**/micro-domain-*.jar'
     // 例外所有的jar
     excludes = configurations.runtime.files.collect { e -> !e.getName().startsWith('micro-domain') ? e.getName() : '' }.asList()
     // lib目录的清除和复制任务

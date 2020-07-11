@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micro.thing.dao.SysAdminDao">
+
+    <select id="loadRootSysAdmin" resultMap="com.micro.thing.mybatis.mapper.SysAdminMapper.BaseResultMap">
+        select a.* from sys_admin a join sys_admin_role_relation r on r.role_id = #{roleId, jdbcType=INTEGER} or a.username = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <select id="loadList" resultMap="com.micro.thing.mybatis.mapper.SysAdminMapper.BaseResultMap">
+        select id, nickname, username, status, create_at from sys_admin
+    </select>
+
+</mapper>
